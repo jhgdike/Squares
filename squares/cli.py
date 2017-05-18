@@ -7,7 +7,7 @@ from flask_script import Manager as Managers
 from .app import create_app
 # from .ext import db
 
-app = create_app('development')
+app = create_app()
 # migrate = Migrate(app, db)
 
 manager = Managers(app)

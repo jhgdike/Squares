@@ -10,12 +10,12 @@ from squares.libs.env_config import get_config
 
 blueprints = [
     'squares.views.home:bp',
-    'squares.views.api.account.user:bp',
+    # 'squares.views.api.account.user:bp',
 ]
 
 extensions = [
     # 'squares.ext:db',
-    'squares.ext:mail',
+    # 'squares.ext:mail',
     'squares.ext:cache',
     'squares.ext:redis',
 ]

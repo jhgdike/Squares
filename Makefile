@@ -4,8 +4,7 @@ WITH_TEST_ENV = env `cat .env tests/.env 2>/dev/null | xargs`
 COMMANDS = help clean install-deps unittest lint initdb
 .PHONY: $(COMMANDS)
 
-server:
-    @$(WITH_ENV) python manage.py runserver
+server:@$(WITH_ENV) python manage.py runserver
 
 help:
 	@echo "commands: $(COMMANDS)"

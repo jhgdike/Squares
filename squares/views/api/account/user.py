@@ -1,9 +1,10 @@
-from flask import Blueprint, jsonify, request
+from flask import jsonify, request
 from flask_login import login_required, current_user
 
 from squares.models.account.account import Account
+from squares.views.api import create_blueprint
 
-bp = Blueprint('user', __name__, url_prefix='/user')
+bp = create_blueprint('account', 'user', __name__)
 
 
 @bp.route('/me')
