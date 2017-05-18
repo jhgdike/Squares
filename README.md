@@ -8,7 +8,8 @@ Squares is a board games. Just for fun.
 * `source venv/bin/activate` or `source venv/Scripts/activate` if you run on a Windows System.
 * `pip install -r requirements.txt`
 * `cp .env.example .env`
-* create a mysql database `squares`
-* `make upgrade`
+* `apt-get install redis` on ubuntu or `brew install redis` on Mac
+* ! create a mysql database `squares`
+* ! `make upgrade`
 * `python manager runserver`
 * Then your program is running and listening on the port 5000. Try to post a request to your server.
