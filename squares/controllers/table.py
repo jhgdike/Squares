@@ -16,6 +16,7 @@ class TableController:
         return redis.get(key)
 
     def create_table(self):
+        table_id = redis.incr(self.table_key())
         for i in range(1, self.TABLE_MAX):
             if redis.setnx(self.table_key(i), i):
                 return i
