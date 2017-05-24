@@ -10,7 +10,7 @@ from squares.libs.env_config import get_config
 
 blueprints = [
     'squares.views.home:bp',
-    # 'squares.views.api.account.user:bp',
+    'squares.views.api.play.table:bp',
 ]
 
 extensions = [
@@ -27,7 +27,7 @@ admin_views = [
 def create_app(config=None):
     app = Flask('squares')
     app.config.from_pyfile('app.cfg')
-    app.config.from_object(get_config('squares'))
+    app.config.from_mapping(**get_config('squares'))
     app.config.from_object(config)
 
     for blueprint_qualname in blueprints:

@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request, redirect
 
 
 def create_blueprint(module, name, package_name):
@@ -16,10 +16,15 @@ def create_blueprint(module, name, package_name):
 
     @blueprint.errorhandler(KeyError)
     def handle_key_error(error):
-        return jsonify(success=False, error=error.messages), 400
+        return jsonify(success=False, error=str(error)), 400
 
     @blueprint.errorhandler(ValueError)
     def handle_value_error(error):
-        return jsonify(success=False, error=error.messages), 400
+        return jsonify(success=False, error=str(error)), 400
+
+    @blueprint.before_request
+    def check_player_id():
+        if not request.cookies.get('player_id'):
+            return redirect('home.login')
 
     return blueprint

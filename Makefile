@@ -4,8 +4,6 @@ WITH_TEST_ENV = env `cat .env tests/.env 2>/dev/null | xargs`
 COMMANDS = help clean install-deps unittest lint initdb
 .PHONY: $(COMMANDS)
 
-server:@$(WITH_ENV) python manage.py runserver
-
 help:
 	@echo "commands: $(COMMANDS)"
 
@@ -14,6 +12,9 @@ clean:
 	@find . -name '__pycache__' -type d -delete
 	@find . -type d -empty -delete
 	@rm -rf build dist htmlcov *.egg-info
+
+server:
+	@$(WITH_ENV) python manage.py runserver
 
 install-deps:
 	@[ -n "$(VIRTUAL_ENV)" ] || (echo 'out of virtualenv'; exit 1)

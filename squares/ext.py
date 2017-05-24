@@ -1,6 +1,6 @@
 # from flask_mail import Mail
 # from flask_sqlalchemy import SQLAlchemy
-from flask_cache import Cache
+from flask_caching import Cache
 from flask_redis import FlaskRedis
 
 
