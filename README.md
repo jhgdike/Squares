@@ -2,9 +2,9 @@ Squares
 =======
 
 Squares is a board games. Just for fun.
---------
 
 To run this function, you need to do as follows:
+-----
 
 * Install Python Interpreter. Python 2.7 or Python 3.4 is recommended.
 * run: `virtualenv venv`
