@@ -2,6 +2,7 @@ Squares
 =======
 
 Squares is a board games. Just for fun.
+--------
 
 To run this function, you need to do as follows:
 
