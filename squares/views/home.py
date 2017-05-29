@@ -3,6 +3,7 @@ from flask import (
     Blueprint, request, render_template, jsonify, make_response, redirect)
 
 from squares.errors import BaseError
+from squares.models.play.table import Table
 
 
 bp = Blueprint('home', __name__)
@@ -10,7 +11,8 @@ bp = Blueprint('home', __name__)
 
 @bp.route('/')
 def home():
-    return render_template('index.html')
+    table_ids = Table.get_all()
+    return render_template('index.html', table_ids=table_ids)
 
 
 @bp.route('/login', methods=['GET', 'POST'])
