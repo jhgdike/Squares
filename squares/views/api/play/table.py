@@ -24,7 +24,7 @@ def create():
     tc = TableController(table.table_id, player_id)
 
     data = table_schema.dump(tc).data
-    return jsonify(data)
+    # return jsonify(data)
     return render_template('table.html', **data)
 
 
