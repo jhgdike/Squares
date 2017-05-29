@@ -111,5 +111,8 @@ class Table:
                 return
         raise JoinTableError('请重新尝试!')
 
-    def put(self, player_id, schema):
-        pass
+    def setp(self, axises, n):
+        self._set_chess(axises, n)
+
+    def _set_chess(self, axis, n):
+        self._table_info['square'][axis[0]][axis[1]] = n

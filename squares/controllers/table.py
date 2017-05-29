@@ -23,6 +23,16 @@ class TableController:
     def is_owner(self):
         return self.player_n == 1
 
+    @property
+    def is_start(self):
+        return self.table.is_started
+
+    def start(self):
+        if self.player_n != 1:
+            raise TakeError('Only onwer can start the game!')
+
+        self.table.start()
+
     def join(self, player_id):
         self.table.join(player_id)
         self.player_id = player_id
@@ -31,8 +41,7 @@ class TableController:
         axises = get_axis_by_schema_id(schema_id, position, rotate, symmetry)
         self._check(axises)
 
-        for axis in axises:
-            self._set_chess(axis)
+        self.table.step(axises, self.player_n)
 
     def _check(self, axises):
         self.is_opposite = False
@@ -46,14 +55,14 @@ class TableController:
         if not self._check_out(axis[0]) or not self._check_out(axis[1]):
             raise OutRangeError('Out of range!')
 
-        if self.table[axis[0]][axis[1]]:
+        if self.squares[axis[0]][axis[1]]:
             raise TakeError('Wrong location!')
 
         self._check_touch(axis)
         self._check_opposite(axis)
 
     def _check_out(self, index):
-        return 0 < index < len(self.table)
+        return 0 < index < len(self.squares)
 
     def _check_touch(self, axis):
         for op in _touch:
@@ -72,10 +81,7 @@ class TableController:
                     break
 
     def _chess_n(self, axis):
-        return self.table[axis[0]][axis[1]]
-
-    def _set_chess(self, axis):
-        self.table[axis[0]][axis[1]] = self.player_n
+        return self.squares[axis[0]][axis[1]]
 
     @property
     def squares(self):

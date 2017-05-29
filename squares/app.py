@@ -60,4 +60,7 @@ def log_config(app):
     ch.setFormatter(logging.Formatter(
         '%(asctime)s - %(name)s - %(levelname)s - %(message)s'))
     log = logging.getLogger()
+
+    if app.config['DEBUG']:
+        log.setLevel(logging.DEBUG)
     log.addHandler(ch)

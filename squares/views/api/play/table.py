@@ -38,16 +38,23 @@ def join(table_id):
 def observe(table_id):
     """observer"""
     tc = TableController(table_id)
-    return jsonify(success=True, data=dict(squares=tc.squares))
+    return jsonify(success=True, data=table_schema.dump(tc).data)
 
 
 @bp.route('/step/<int:table_id>')
 def step(table_id):
     tc = TableController(table_id)
-    schema_id = request.form['schema_id']
-    position = request.form['position']
-    rotate = request.form.get('rotate', type=int)
-    symmetry = request.form.get('symmetry', type=bool)
+    schema_id = request.args.get('schema_id')
+    position = request.args.get('position')
+    rotate = request.args.get('rotate', type=int)
+    symmetry = request.args.get('symmetry', type=bool)
 
     tc.step(schema_id, position, rotate, symmetry)
     return jsonify(success=True, data=dict(squares=tc.squares))
+
+
+@bp.route('/ready/<int:table_id>')
+def ready(table_id):
+    tc = TableController(table_id)
+    tc.start()
+    return jsonify(success=True, data=table_schema.dump(tc).data)
