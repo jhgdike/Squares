@@ -8,7 +8,6 @@
 {% block body %}
 <div>
     <H3>Tables:</H3>
-    {% set table_ids=[1,2,3,4,5] %}
 {% for table in table_ids %}
 <a id ={{loop.index}} href="/api/play/table/join/{{table}}")>table {{loop.index}} </a>
 {% endfor %}

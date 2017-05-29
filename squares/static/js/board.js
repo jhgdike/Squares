@@ -23,20 +23,24 @@ function ask_for_fresh(tid) {
     $.ajax(
         {
             type: "GET",
-            url: "/view/api/play/table/observe/tid",
+            url: "/view/api/play/table/observe/"+tid,
             dataType: "json",
             success: function (data) {
                 for(var i=0;i<20;i++)
                 {
                     for(var j=0;j<20;j++)
                     {
-                        context.fillStyle=pid2col[data.???];
+                        context.fillStyle=pid2col[data.player_n];
                         context.fillRect(600+i*40,j*40,40,40);
                         context.strokeRect(600+i*40,j*40,40,40);
                     }
                 }
                 if(data.is_started==1)
-                    clearTimeout(t);
+                {
+                    alert("game started!!");
+                    gs=1;
+                    window.clearInterval(t);
+                }
             }
         });
 }
@@ -52,12 +56,13 @@ function waiting_for_turn(tid) {
                 {
                     for(var j=0;j<20;j++)
                     {
-                        context.fillStyle=pid2col[data.???];
+                        context.fillStyle=pid2col[data.player_n];
                         context.fillRect(600+i*40,j*40,40,40);
                         context.strokeRect(600+i*40,j*40,40,40);
+                        board[i][j]=data.squares[i][j];
                     }
                 }
-                if({{turn}}==player_n)
+                if(data.turn==data.player_n)
                     time_to_move=1;
             }
         });

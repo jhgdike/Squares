@@ -26,29 +26,25 @@
     var select_flag=-1;
     player=new Object;
     create_chesses(pid2col[{{player_n}}],player);
-    for(let i=0;i<3000;i++)
-    {
-        var t=setTimeout(ask_for_fresh({{table_id}}),1000);
-    }
-    alert("game started");
-    let time_to_move=0;
-    window.onload=function()
-    {
-        if(time_to_move==0)
-            t=setTimeout(waiting_for_turn({{table_id}}),1000);
-        if(time_to_move==1)
-        {
-                var coordina=document.getElementById("chesses");
-                coordina.onclick=function(ev)
-                {
-                    ev=window.event||ev;
+    var gs=1;
+    var t=setInterval(function(){"ask_for_fresh('{{table_id}}')"},1000);
+    if(gs===1) {
+        var time_to_move = 0;
+        window.onload = function () {
+            if (time_to_move == 0)
+                t = setTimeout(function(){"waiting_for_turn('{{table_id}}')"}, 1000);
+            if (time_to_move == 1) {
+                var coordina = document.getElementById("chesses");
+                coordina.onclick = function (ev) {
+                    ev = window.event || ev;
                     var scrollX = document.documentElement.scrollLeft || document.body.scrollLeft;
                     var scrollY = document.documentElement.scrollTop || document.body.scrollTop;
                     var x = ev.pageX || ev.clientX + scrollX;
                     var y = ev.pageY || ev.clientY + scrollY;
                     //alert(x+" "+y);
-                    get_mouse_position(x,y);
+                    get_mouse_position(x, y);
                 }
+            }
         }
     }
 
