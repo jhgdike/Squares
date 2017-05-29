@@ -14,7 +14,7 @@ clean:
 	@rm -rf build dist htmlcov *.egg-info
 
 server:
-	@$(WITH_ENV) python manage.py runserver
+	@$(WITH_ENV) python manage.py runserver -h 0.0.0.0
 
 install-deps:
 	@[ -n "$(VIRTUAL_ENV)" ] || (echo 'out of virtualenv'; exit 1)

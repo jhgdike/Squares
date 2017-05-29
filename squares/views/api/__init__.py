@@ -22,7 +22,7 @@ def create_blueprint(module, name, package_name):
     def handle_value_error(error):
         return jsonify(success=False, error=str(error)), 400
 
-    @blueprint.before_request
+    # @blueprint.before_request
     def check_player_id():
         if not request.cookies.get('player_id'):
             return redirect('home.login')

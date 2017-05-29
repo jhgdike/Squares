@@ -11,3 +11,11 @@ class JoinTableError(BaseError):
 
 class StartError(BaseError):
     pass
+
+
+class OutRangeError(BaseError):
+    pass
+
+
+class TakeError(BaseError):
+    pass

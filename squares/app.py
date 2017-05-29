@@ -40,7 +40,7 @@ def create_app(config=None):
 
     log_config(app)
 
-    admin = Admin(app, name='神', template_mode='bootstrap3')
+    admin = Admin(app, name='admin', template_mode='bootstrap3')
     for modelview_qualname in admin_views:
         modelview = import_string(modelview_qualname)
         admin.add_view(modelview)
