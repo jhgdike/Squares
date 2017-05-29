@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>square game</title>
+</head>
+<body>
+<canvas id="drawing" width="1600" height="800" style="position: absolute">the background for the game</canvas>
+<canvas id="chesses" width="1800" height="800" style="position: absolute">the chesses layer</canvas>
+<script type="text/javascript" src="/static/js/board.js">//plot the board</script>
+<script type="text/javascript" src="/static/js/define_chess.js">//define all the chess</script>
+<script type="text/javascript" src="/static/js/mouse_recall.js">//contral the mouse event</script>
+<script type="text/javascript" src="/static/js/valid_determine.js">//judge if the move is valid</script>
+<script type="text/javascript" src="/static/js/button_operate.js">//button operates</script>
+<script type="text/javascript">
+    var step=0;
+    var browser=myBrowser();
+    var select_flag=-1;
+    player=new Object;
+    var pla_num=0;
+    var pla_col="red";
+    create_chesses(pla_col,player);
+    window.onload=function()
+    {
+        var coordina=document.getElementById("chesses");
+        coordina.onclick=function(ev)
+        {
+            ev=window.event||ev;
+            var scrollX = document.documentElement.scrollLeft || document.body.scrollLeft;
+            var scrollY = document.documentElement.scrollTop || document.body.scrollTop;
+            var x = ev.pageX || ev.clientX + scrollX;
+            var y = ev.pageY || ev.clientY + scrollY;
+            //alert(x+" "+y);
+            get_mouse_position(x,y);
+        }
+    }
+    var a= {
+        "data": 1,
+    }
+    console.log(a);
+//player.chess[5].draw(20,20);
+
+</script>
+<div>
+    <input type="button" style="position: absolute;width:100px;height:100px;left:1450px;top:500px" value="rotate" onclick="rota(select_flag)">
+    <input type="button" style="position: absolute;width:100px;height:100px;left:1550px;top:500px" value="reverse" onclick="reve(select_flag)">
+    <input type="button" style="position: absolute;width:100px;height:100px;left:1650px;top:500px" value="give up" onclick="reco(select_flag)">
+</div>
+</body>
+</html>
