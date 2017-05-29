@@ -10,18 +10,22 @@ class TableController:
     def __init__(self, table_id, player_id=0):
         self.table = Table.get_by_id(table_id)
         self.player_id = player_id
-        self._reset_player_n()
+        self.players = self.table.players
 
-    def _reset_player_n(self):
+    @property
+    def player_n(self):
         if self.player_id:
-            for index, player_id in enumerate(self.table.players):
+            for index, player_id in enumerate(self.players):
                 if player_id == self.player_id:
-                    self.player_n = index + 1
+                    return index + 1
+
+    @property
+    def is_owner(self):
+        return self.player_n == 1
 
     def join(self, player_id):
         self.table.join(player_id)
         self.player_id = player_id
-        self._reset_player_n()
 
     def step(self, schema_id, position, rotate=0, symmetry=False):
         axises = get_axis_by_schema_id(schema_id, position, rotate, symmetry)
