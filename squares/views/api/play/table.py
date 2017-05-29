@@ -24,7 +24,7 @@ def create():
     tc = TableController(table.table_id)
 
     data = table_schema.dump(tc).data
-    return jsonify(data)
+    # return jsonify(data)
     return render_template('table.html', **data)
 
 
@@ -35,7 +35,7 @@ def join(table_id):
     tc = TableController(table_id)
     tc.join(player_id)
     data = table_schema.dump(tc).data
-    return jsonify(data)
+    # return jsonify(data)
     return render_template('table.html', **data)
 
 
