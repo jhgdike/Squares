@@ -7,6 +7,7 @@
 <body>
 <canvas id="drawing" width="1600" height="800" style="position: absolute">the background for the game</canvas>
 <canvas id="chesses" width="1800" height="800" style="position: absolute">the chesses layer</canvas>
+<script src="/admin/static/vendor/jquery.min.js?v=2.1.4" type="text/javascript"></script>
 <script type="text/javascript" src="/static/js/board.js">//plot the board</script>
 <script type="text/javascript" src="/static/js/define_chess.js">//define all the chess</script>
 <script type="text/javascript" src="/static/js/mouse_recall.js">//contral the mouse event</script>
@@ -55,6 +56,7 @@
 
 </script>
 <div>
+
     <input type="button" style="position: absolute;width:100px;height:100px;left:1450px;top:500px" value="rotate" onclick="rota(select_flag)">
     <input type="button" style="position: absolute;width:100px;height:100px;left:1550px;top:500px" value="reverse" onclick="reve(select_flag)">
     <input type="button" style="position: absolute;width:100px;height:100px;left:1650px;top:500px" value="abandon" onclick="reco(select_flag)">
