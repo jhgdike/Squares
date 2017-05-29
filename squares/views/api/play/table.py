@@ -19,7 +19,6 @@ def create():
     """create a game table"""
     player_id = request.cookies['player_id']
     table = Table.create_table(player_id)
-    print(table.table_id)
     return jsonify(success=True, data=table_schema.dump(table).data)
 
 
@@ -44,5 +43,8 @@ def step(table_id):
     tc = TableController(table_id)
     schema_id = request.form['schema_id']
     position = request.form['position']
-    tc.step(schema_id, position)
+    rotate = request.form.get('rotate', type=int)
+    symmetry = request.form.get('symmetry', type=bool)
+
+    tc.step(schema_id, position, rotate, symmetry)
     return jsonify(success=True, data=dict(squares=tc.squares))
