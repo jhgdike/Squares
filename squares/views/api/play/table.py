@@ -1,4 +1,4 @@
-from flask import jsonify, request
+from flask import jsonify, request, render_template
 
 from squares.views.api import create_blueprint
 from squares.controllers.table import TableController, Table
@@ -14,21 +14,23 @@ def home():
     return jsonify(success=True, data={'table_ids': table_ids})
 
 
-@bp.route('/create', methods=('POST',))
+@bp.route('/create')
 def create():
     """create a game table"""
     player_id = request.cookies['player_id']
     table = Table.create_table(player_id)
-    return jsonify(success=True, data=table_schema.dump(table).data)
+    data = table_schema.dump(table).data
+    return render_template('table.html', **data)
 
 
-@bp.route('/join/<int:table_id>', methods=('POST',))
+@bp.route('/join/<int:table_id>')
 def join(table_id):
     """join"""
     player_id = request.cookie['player_id']
     tc = TableController(table_id)
     tc.join(player_id)
-    return jsonify(success=True, data=None)
+    data = table_schema.dump(tc).data
+    return render_template('table.html', **data)
 
 
 @bp.route('/observe/<int:table_id>')

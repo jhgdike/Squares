@@ -5,7 +5,8 @@ class TableSchema(Schema):
     """table schema"""
     table_id = fields.String()
     players = fields.List(fields.Integer())
-    owner = fields.Integer()
+    turn = fields.Integer(default=0, attribute='player_n')
+    is_owner = fields.Boolean()
     is_started = fields.Boolean()
 
 table_schema = TableSchema()
