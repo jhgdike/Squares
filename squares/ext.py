@@ -6,5 +6,5 @@ from flask_redis import FlaskRedis
 
 # mail = Mail()
 # db = SQLAlchemy()
-cache = Cache()
+cache = Cache(config={'CACHE_TYPE': 'redis'})
 redis = FlaskRedis()
