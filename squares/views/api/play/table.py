@@ -20,6 +20,7 @@ def create():
     player_id = request.cookies['player_id']
     table = Table.create_table(player_id)
     data = table_schema.dump(table).data
+    print(data)
     return render_template('table.html', **data)
 
 

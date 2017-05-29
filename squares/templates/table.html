@@ -12,6 +12,7 @@
 <script type="text/javascript" src="/static/js/mouse_recall.js">//contral the mouse event</script>
 <script type="text/javascript" src="/static/js/valid_determine.js">//judge if the move is valid</script>
 <script type="text/javascript" src="/static/js/button_operate.js">//button operates</script>
+<script type="text/javascript" src="/static/js/ready&giveup.js">//button operates</script>
 <script type="text/javascript">
     var step=0;
     var browser=myBrowser();
@@ -34,10 +35,12 @@
             get_mouse_position(x,y);
         }
     }
-    var a= {
-        "data": 1,
+
+    for(let i=0;i<3000;i++)
+    {
+        setTimeout(ask_for_fresh({{table_id}}),1000);
+
     }
-    console.log(a);
 //player.chess[5].draw(20,20);
 
 </script>
@@ -45,7 +48,6 @@
     <input type="button" style="position: absolute;width:100px;height:100px;left:1450px;top:500px" value="rotate" onclick="rota(select_flag)">
     <input type="button" style="position: absolute;width:100px;height:100px;left:1550px;top:500px" value="reverse" onclick="reve(select_flag)">
     <input type="button" style="position: absolute;width:100px;height:100px;left:1650px;top:500px" value="abandon" onclick="reco(select_flag)">
-    <input type="button" style="position: absolute;width:200px;height:100px;left:1500px;top:700px" value="READY_TO_PLAY" onclick="send_ready()">
     <input type="button" style="position: absolute;width:200px;height:100px;left:1500px;top:800px" value="GIVE_UP_GAME" onclick="send_give_up()">
 </div>
 </body>
