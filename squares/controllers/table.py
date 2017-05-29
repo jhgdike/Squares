@@ -8,6 +8,7 @@ class TableController:
     TABLE_ID = 'table_id_{}'
 
     def __init__(self, table_id, player_id=0):
+        self.table_id = table_id
         self.table = Table.get_by_id(table_id)
         self.player_id = player_id
         self.players = self.table.players
@@ -20,6 +21,10 @@ class TableController:
                     return index + 1
 
     @property
+    def turn(self):
+        return self.table.turn
+
+    @property
     def is_owner(self):
         return self.player_n == 1
 
@@ -30,7 +35,8 @@ class TableController:
     def start(self):
         if self.player_n != 1:
             raise TakeError('Only onwer can start the game!')
-
+        if self.player_id != self.table.owner:
+            raise TakeError('Your are not the onwer!')
         self.table.start()
 
     def join(self, player_id):
@@ -42,6 +48,9 @@ class TableController:
         self._check(axises)
 
         self.table.step(axises, self.player_n)
+
+    def quit(self):
+        self.table.quit(self.player_id)
 
     def _check(self, axises):
         self.is_opposite = False
@@ -86,6 +95,10 @@ class TableController:
     @property
     def squares(self):
         return self.table.situation()
+
+    @property
+    def status(self):
+        return self.table.status
 
 _touch = [
     [0, -1],
