@@ -21,10 +21,10 @@ def create():
     """create a game table"""
     player_id = request.cookies['player_id']
     table = Table.create_table(player_id)
-    tc = TableController(table.table_id)
+    tc = TableController(table.table_id, player_id)
 
     data = table_schema.dump(tc).data
-    # return jsonify(data)
+    return jsonify(data)
     return render_template('table.html', **data)
 
 
