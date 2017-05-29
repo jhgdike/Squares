@@ -20,6 +20,10 @@ class TableController:
                     return index + 1
 
     @property
+    def turn(self):
+        return self.table.turn
+
+    @property
     def is_owner(self):
         return self.player_n == 1
 
@@ -42,6 +46,9 @@ class TableController:
         self._check(axises)
 
         self.table.step(axises, self.player_n)
+
+    def quit(self):
+        self.table.quit(self.player_id)
 
     def _check(self, axises):
         self.is_opposite = False

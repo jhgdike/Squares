@@ -19,7 +19,9 @@ def create():
     """create a game table"""
     player_id = request.cookies['player_id']
     table = Table.create_table(player_id)
-    data = table_schema.dump(table).data
+    tc = TableController(table.table_id)
+
+    data = table_schema.dump(tc).data
     return render_template('table.html', **data)
 
 
@@ -57,3 +59,10 @@ def ready(table_id):
     tc = TableController(table_id)
     tc.start()
     return jsonify(success=True, data=table_schema.dump(tc).data)
+
+
+@bp.route('/quit')
+def giveup(table_id):
+    tc = TableController(table_id)
+    tc.quit()
+    return jsonify(success=True)

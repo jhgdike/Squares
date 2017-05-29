@@ -9,5 +9,6 @@ class TableSchema(Schema):
     is_owner = fields.Boolean()
     is_started = fields.Boolean()
     squares = fields.List(fields.List(fields.Integer()))
+    player_n = fields.Integer()
 
 table_schema = TableSchema()

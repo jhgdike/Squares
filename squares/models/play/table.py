@@ -35,23 +35,26 @@ class Table:
         self.owner = None
 
     def prepare(self, table_id, table_info):
+        print(table_info)
         self.table_id = table_id
         self._table_info = table_info
         self.players = table_info['players']
         self.owner = table_info['owner']
+        self.status = table_info['status']
 
     @classmethod
     def get_all(cls):
         all_table = redis.hgetall(cls.TABLE_GROUP)
         now = int(time.time())
-        return [str(k) for k, v in all_table.items() if int(v) > now]
+        return [k.decode() for k, v in all_table.items() if int(v) > now]
 
     @classmethod
     def get_by_id(cls, table_id):
         table_info = redis.get(table_id)
         if table_info:
             table = cls()
-            table.prepare(table_id, json.loads(table_info))
+            table.prepare(table_id, json.loads(
+                table_info.decode().replace('\'', '"')))
             return table
 
     @classmethod
@@ -65,6 +68,7 @@ class Table:
         table_info = {
             'turn': 0,
             'players': [player_id],
+            'status': [1] * 4,
             'owner': player_id,
         }
         if redis.set(table_id, table_info, ex=3600):
@@ -80,6 +84,10 @@ class Table:
     def is_started(self):
         return self._table_info.get('turn', 0) > 0 and \
                len(self.players) >= 2
+
+    @property
+    def turn(self):
+        return self._table_info['turn']
 
     def commit(self):
         if self.table_id and self._table_info:
@@ -111,8 +119,22 @@ class Table:
                 return
         raise JoinTableError('请重新尝试!')
 
-    def setp(self, axises, n):
+    def step(self, axises, n):
         self._set_chess(axises, n)
+
+        while True:
+            turn = (self._table_info['turn']) % 4 + 1
+            if not self.status[turn - 1]:
+                self._table_info['turn'] = turn
+                break
+
+        self.commit()
 
     def _set_chess(self, axis, n):
         self._table_info['square'][axis[0]][axis[1]] = n
+
+    def quit(self, player_id):
+        for index, p_id in enumerate(self.players):
+            if player_id == p_id:
+                self.status[index] = 1
+                break

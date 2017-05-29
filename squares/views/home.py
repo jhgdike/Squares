@@ -27,9 +27,9 @@ def login():
     return response
 
 
-@bp.app_errorhandler(BaseError)
-def app_errorhandler(e):
-    return jsonify(success=False, error=str(e))
+# @bp.app_errorhandler(BaseError)
+# def app_errorhandler(e):
+#     return jsonify(success=False, error=str(e))
 
 
 @bp.app_errorhandler(400)
