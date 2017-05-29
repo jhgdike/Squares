@@ -1,3 +1,5 @@
+import json
+
 from flask import jsonify, request, render_template
 
 from squares.views.api import create_blueprint
@@ -22,47 +24,53 @@ def create():
     tc = TableController(table.table_id)
 
     data = table_schema.dump(tc).data
+    return jsonify(data)
     return render_template('table.html', **data)
 
 
-@bp.route('/join/<int:table_id>')
+@bp.route('/join/<string:table_id>')
 def join(table_id):
     """join"""
-    player_id = request.cookie['player_id']
+    player_id = request.cookies['player_id']
     tc = TableController(table_id)
     tc.join(player_id)
     data = table_schema.dump(tc).data
+    return jsonify(data)
     return render_template('table.html', **data)
 
 
-@bp.route('/observe/<int:table_id>')
+@bp.route('/observe/<string:table_id>')
 def observe(table_id):
     """observer"""
     tc = TableController(table_id)
     return jsonify(success=True, data=table_schema.dump(tc).data)
 
 
-@bp.route('/step/<int:table_id>')
+@bp.route('/step/<string:table_id>')
 def step(table_id):
-    tc = TableController(table_id)
+    player_id = request.cookies['player_id']
+    tc = TableController(table_id, player_id)
+
     schema_id = request.args.get('schema_id')
-    position = request.args.get('position')
-    rotate = request.args.get('rotate', type=int)
-    symmetry = request.args.get('symmetry', type=bool)
+    position = json.loads(request.args.get('position', "[0, 0]"))
+    rotate = request.args.get('rotate', 0, type=int)
+    symmetry = request.args.get('symmetry', False, type=bool)
 
     tc.step(schema_id, position, rotate, symmetry)
     return jsonify(success=True, data=dict(squares=tc.squares))
 
 
-@bp.route('/ready/<int:table_id>')
-def ready(table_id):
-    tc = TableController(table_id)
+@bp.route('/start/<string:table_id>')
+def start(table_id):
+    player_id = request.cookies['player_id']
+    tc = TableController(table_id, player_id)
     tc.start()
     return jsonify(success=True, data=table_schema.dump(tc).data)
 
 
-@bp.route('/quit')
-def giveup(table_id):
-    tc = TableController(table_id)
+@bp.route('/quit/<string:table_id>')
+def gave_up(table_id):
+    player_id = request.cookies['player_id']
+    tc = TableController(table_id, player_id)
     tc.quit()
     return jsonify(success=True)

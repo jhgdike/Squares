@@ -29,6 +29,7 @@ def create_app(config=None):
     app.config.from_pyfile('app.cfg')
     app.config.from_mapping(**get_config('squares'))
     app.config.from_object(config)
+    app.config['JSONIFY_PRETTYPRINT_REGULAR'] = False
 
     for blueprint_qualname in blueprints:
         blueprint = import_string(blueprint_qualname)

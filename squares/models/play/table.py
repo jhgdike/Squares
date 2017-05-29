@@ -4,7 +4,7 @@ import random
 
 from squares.ext import redis
 from squares.utils.dis_mutex import dist_mutex_context
-from squares.errors.table import BusyError, JoinTableError, StartError
+from squares.errors.table import TakeError, JoinTableError, StartError
 
 
 class Table:
@@ -97,9 +97,9 @@ class Table:
         with dist_mutex_context('start_'.format(self.table_id), 3) as locked:
             if locked:
                 if len(self.players) < 2:
-                    raise StartError('人数不足！')
+                    raise StartError('Poor players!')
                 if self._table_info['turn'] != 0:
-                    raise StartError('本局游戏已开始！')
+                    raise StartError('The Game has been started!')
 
                 self._table_info['square'] = [[0] * 16] * 16
                 self._table_info['turn'] = random.randint(
@@ -110,16 +110,20 @@ class Table:
         with dist_mutex_context('join_{}'.format(self.table_id), 3) as locked:
             if locked:
                 if self.is_started:
-                    raise JoinTableError('本局游戏已开始！')
+                    raise JoinTableError('The Game has been started!')
                 if len(self.players) == 4:
-                    raise JoinTableError('本桌已满！')
+                    raise JoinTableError('This Table is full!')
+                if player_id in self.players:
+                    raise JoinTableError('Already joined!')
 
                 self.players.append(player_id)
                 self.commit()
                 return
-        raise JoinTableError('请重新尝试!')
+        raise JoinTableError('Network error, please try again!')
 
     def step(self, axises, n):
+        if n != self._table_info['turn']:
+            raise TakeError('Not your turn!')
         self._set_chess(axises, n)
 
         while True:
