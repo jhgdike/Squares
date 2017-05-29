@@ -40,7 +40,6 @@ class Table:
         self._table_info = table_info
         self.players = table_info['players']
         self.owner = table_info['owner']
-        self.status = table_info['status']
 
     @classmethod
     def get_all(cls):
@@ -68,7 +67,6 @@ class Table:
         table_info = {
             'turn': 0,
             'players': [player_id],
-            'status': [1] * 4,
             'owner': player_id,
         }
         if redis.set(table_id, table_info, ex=3600):
@@ -102,6 +100,7 @@ class Table:
                     raise StartError('The Game has been started!')
 
                 self._table_info['square'] = [[0] * 16] * 16
+                self._table_info['status'] = [True] * len(self.players),
                 self._table_info['turn'] = random.randint(
                     1, len(self.players))
                 self.commit()
@@ -127,7 +126,7 @@ class Table:
         self._set_chess(axises, n)
 
         while True:
-            turn = (self._table_info['turn']) % 4 + 1
+            turn = (self._table_info['turn']) % len(self.players) + 1
             if not self.status[turn - 1]:
                 self._table_info['turn'] = turn
                 break
