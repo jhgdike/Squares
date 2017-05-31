@@ -55,22 +55,9 @@ coverage.xml
 # Django stuff:
 *.log
 
-# Sphinx documentation
-docs/_build/
-
-# api demo doc
-apidemo/doc
-
 # PyBuilder
 target/
 
-# The compiled template
-ganymede/templates/
-ganymede/static/
-
-# Node modules
-node_modules/
-
+# db
 .DS_Store
-bin/
 *.sqlite
