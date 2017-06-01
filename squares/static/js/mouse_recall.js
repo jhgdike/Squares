@@ -31,7 +31,7 @@ function get_mouse_position(x,y)
         cy=Math.floor(y/40);
         if(select_flag>=0)
         {
-            let flag=take_place(select_flag,x,y);
+            let flag=take_place(playern,select_flag,x,y);
             if(flag)
             {
                 player.chess[select_flag].erase();
