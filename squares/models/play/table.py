@@ -108,12 +108,12 @@ class Table:
     def join(self, player_id):
         with dist_mutex_context('join_{}'.format(self.table_id), 3) as locked:
             if locked:
+                if player_id in self.players:
+                    return
                 if self.is_started:
                     raise JoinTableError('The Game has been started!')
                 if len(self.players) == 4:
                     raise JoinTableError('This Table is full!')
-                if player_id in self.players:
-                    raise JoinTableError('Already joined!')
 
                 self.players.append(player_id)
                 self.commit()
@@ -127,7 +127,7 @@ class Table:
 
         while True:
             turn = (self._table_info['turn']) % len(self.players) + 1
-            if not self.status[turn - 1]:
+            if self._table_info['status'][turn - 1]:
                 self._table_info['turn'] = turn
                 break
 
@@ -139,5 +139,5 @@ class Table:
     def quit(self, player_id):
         for index, p_id in enumerate(self.players):
             if player_id == p_id:
-                self.status[index] = 1
+                self._table_info['status'][index] = False
                 break

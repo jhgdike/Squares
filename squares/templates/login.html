@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block body %}
 <form method="POST" action="{{url_for('home.login')}}">
-  <input type="text" name="name" placeholder="你的昵称">
+  <input type="text" name="name" placeholder="{{error}}">
 </form>
 {% endblock %}

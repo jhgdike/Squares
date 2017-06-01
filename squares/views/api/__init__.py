@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, request, redirect
+from flask import Blueprint, jsonify, request, redirect, url_for
 
 
 def create_blueprint(module, name, package_name):
@@ -25,6 +25,6 @@ def create_blueprint(module, name, package_name):
     @blueprint.before_request
     def check_player_id():
         if not request.cookies.get('player_id'):
-            return redirect('home.login')
+            return redirect(url_for('home.login'))
 
     return blueprint
