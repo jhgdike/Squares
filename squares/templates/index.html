@@ -1,43 +1,19 @@
 {% extends "base.html" %}
 
 {% block head %}
-<script type="text/javascript" src="/static/js/difine_table.js"></script>
 <script type="text/javascript">
-    function create_table()
-    {
-        $.ajax({
-            type: "POST",
-            url: "/api/play/table/create",
-            dataType: "json",
-            success: function(data){
-                console.log(data);
-            }
-        });
-    }
-    function join_table(i)
-    {
-        $.ajax({
-            type: "POST",
-            url: "/api/play/table",
-            data:i,
-            dataType: "json",
-            success: function(data){
-                alert(data);
-            }
-        });
-    }
+
 </script>
 {% endblock %}
 {% block body %}
 <div>
     <H3>Tables:</H3>
-    {% set table_ids=[1,2,3,4,5] %}
 {% for table in table_ids %}
-<p id ={{loop.index}} onclick=join_table("{{loop.index}}")>table {{loop.index}} </p>
+<a id ={{loop.index}} href="/api/play/table/join/{{table}}")>table {{loop.index}} </a>
 {% endfor %}
 </div>
 
 <div class="form-group">
-    <div class="btn btn-primary" onclick="create_table()">创建桌子</div>
+    <a class="btn btn-primary" href="/api/play/table/create">创建桌子</a>
 </div>
 {% endblock %}

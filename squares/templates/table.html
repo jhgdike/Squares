@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>square game</title>
+</head>
+<body>
+<canvas id="drawing" width="1600" height="800" style="position: absolute">the background for the game</canvas>
+<canvas id="chesses" width="1800" height="800" style="position: absolute">the chesses layer</canvas>
+<script src="/admin/static/vendor/jquery.min.js?v=2.1.4" type="text/javascript"></script>
+<script type="text/javascript" src="/static/js/board.js">//plot the board</script>
+<script type="text/javascript" src="/static/js/define_chess.js">//define all the chess</script>
+<script type="text/javascript" src="/static/js/mouse_recall.js">//contral the mouse event</script>
+<script type="text/javascript" src="/static/js/valid_determine.js">//judge if the move is valid</script>
+<script type="text/javascript" src="/static/js/button_operate.js">//button operates</script>
+<script type="text/javascript" src="/static/js/ready&giveup.js">//button operates</script>
+<script type="text/javascript">
+    var pid2col=new Array(5);
+    pid2col[0]="rgba(127,0,127,0.5)";
+    pid2col[1]="red";
+    pid2col[2]="orange";
+    pid2col[3]="yellow";
+    pid2col[4]="blue";
+    var step=0;
+    var browser=myBrowser();
+    var select_flag=-1;
+    player=new Object;
+    create_chesses(pid2col[{{player_n}}],player);
+    var gs=1;
+    var t=setInterval(function(){"ask_for_fresh('{{table_id}}')"},1000);
+    if(gs===1) {
+        var time_to_move = 0;
+        window.onload = function () {
+            if (time_to_move == 0)
+                t = setTimeout(function(){"waiting_for_turn('{{table_id}}')"}, 1000);
+            if (time_to_move == 1) {
+                var coordina = document.getElementById("chesses");
+                coordina.onclick = function (ev) {
+                    ev = window.event || ev;
+                    var scrollX = document.documentElement.scrollLeft || document.body.scrollLeft;
+                    var scrollY = document.documentElement.scrollTop || document.body.scrollTop;
+                    var x = ev.pageX || ev.clientX + scrollX;
+                    var y = ev.pageY || ev.clientY + scrollY;
+                    //alert(x+" "+y);
+                    get_mouse_position(x, y);
+                }
+            }
+        }
+    }
+
+//player.chess[5].draw(20,20);
+
+</script>
+<div>
+
+    <input type="button" style="position: absolute;width:100px;height:100px;left:1450px;top:500px" value="rotate" onclick="rota(select_flag)">
+    <input type="button" style="position: absolute;width:100px;height:100px;left:1550px;top:500px" value="reverse" onclick="reve(select_flag)">
+    <input type="button" style="position: absolute;width:100px;height:100px;left:1650px;top:500px" value="abandon" onclick="reco(select_flag)">
+    {% if is_owner%}
+    <input type="button" style="position: absolute;width:200px;height:100px;left:1500px;top:700px" value="START_GAME" onclick="send_start()">
+    {% endif %}
+    <input type="button" style="position: absolute;width:200px;height:100px;left:1500px;top:800px" value="GIVE_UP_GAME" onclick="send_give_up()">
+</div>
+</body>
+</html>

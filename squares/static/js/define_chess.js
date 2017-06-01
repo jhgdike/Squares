@@ -2,7 +2,7 @@
  * Created by firzen on 17-5-24.
  */
 var chesses=document.getElementById("chesses");
-let Chess=
+var Chess=
     {
         createNew: function (color)
         {

@@ -31,7 +31,7 @@ function get_mouse_position(x,y)
         cy=Math.floor(y/40);
         if(select_flag>=0)
         {
-            let flag=take_place(select_flag,x,y);
+            let flag=take_place(playern,select_flag,x,y);
             if(flag)
             {
                 player.chess[select_flag].erase();
@@ -39,6 +39,16 @@ function get_mouse_position(x,y)
                 player.chess[select_flag].posiy = cy * 40;
                 player.chess[select_flag].plot();
                 player.chess[select_flag].used = 1;
+                $.ajax({
+                    type: "GET",
+                    url: "/view/api/play/table/step/{{table_id}}",
+                    data:{schema_id: select_flag, position:(cx,cy),rotate:player.chess[select_flag].rotate,symmetry:player.chess[select_flag].reverse},
+                    dataType: "json",
+                    success: function(data){
+                        alert("moved");
+                        time_to_move=0;
+                    }
+                });
                 select_flag = -1;
                 step++;
             }
