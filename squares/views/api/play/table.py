@@ -1,4 +1,5 @@
 import json
+import logging
 
 from flask import jsonify, request, render_template
 
@@ -16,7 +17,7 @@ def home():
     return jsonify(success=True, data={'table_ids': table_ids})
 
 
-@bp.route('/create')
+@bp.route('/create', methods=('POST',))
 def create():
     """create a game table"""
     player_id = request.cookies['player_id']
@@ -24,18 +25,18 @@ def create():
     tc = TableController(table.table_id, player_id)
 
     data = table_schema.dump(tc).data
-    # return jsonify(data)
+    logging.info(data)
     return render_template('table.html', **data)
 
 
-@bp.route('/join/<string:table_id>')
+@bp.route('/join/<string:table_id>', methods=('POST',))
 def join(table_id):
     """join"""
     player_id = request.cookies['player_id']
     tc = TableController(table_id)
     tc.join(player_id)
     data = table_schema.dump(tc).data
-    # return jsonify(data)
+    logging.info(data)
     return render_template('table.html', **data)
 
 
@@ -46,7 +47,7 @@ def observe(table_id):
     return jsonify(success=True, data=table_schema.dump(tc).data)
 
 
-@bp.route('/step/<string:table_id>')
+@bp.route('/step/<string:table_id>', methods=('POST',))
 def step(table_id):
     player_id = request.cookies['player_id']
     tc = TableController(table_id, player_id)
@@ -60,7 +61,7 @@ def step(table_id):
     return jsonify(success=True, data=dict(squares=tc.squares))
 
 
-@bp.route('/start/<string:table_id>')
+@bp.route('/start/<string:table_id>', methods=('POST',))
 def start(table_id):
     player_id = request.cookies['player_id']
     tc = TableController(table_id, player_id)
@@ -68,7 +69,7 @@ def start(table_id):
     return jsonify(success=True, data=table_schema.dump(tc).data)
 
 
-@bp.route('/quit/<string:table_id>')
+@bp.route('/quit/<string:table_id>', methods=('POST',))
 def gave_up(table_id):
     player_id = request.cookies['player_id']
     tc = TableController(table_id, player_id)
