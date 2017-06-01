@@ -23,7 +23,7 @@ function ask_for_fresh(tid) {
     $.ajax(
         {
             type: "GET",
-            url: "/view/api/play/table/observe/"+tid,
+            url: "/api/play/table/observe/"+tid,
             dataType: "json",
             success: function (data) {
                 for(var i=0;i<20;i++)
@@ -49,7 +49,7 @@ function waiting_for_turn(tid) {
     $.ajax(
         {
             type: "GET",
-            url: "/view/api/play/table/observe/tid",
+            url: "/api/play/table/observe/"+tid,
             dataType: "json",
             success: function (data) {
                 for(var i=0;i<20;i++)
