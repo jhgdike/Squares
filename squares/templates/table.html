@@ -16,7 +16,7 @@
 <script type="text/javascript" src="/static/js/ready&giveup.js">//button operates</script>
 <script type="text/javascript">
     var pid2col=new Array(5);
-    pid2col[0]="rgba(127,0,127,0.5)";
+    pid2col[0]="rgba(127,0,127,1)";
     pid2col[1]="red";
     pid2col[2]="orange";
     pid2col[3]="yellow";
@@ -25,14 +25,17 @@
     var browser=myBrowser();
     var select_flag=-1;
     player=new Object;
-    create_chesses(pid2col[{{player_n}}],player);
-    var gs=1;
-    var t=setInterval(function(){"ask_for_fresh('{{table_id}}')"},1000);
+    var playern={{player_n}};
+    var tid="{{table_id}}";
+    create_chesses(pid2col[playern],player);
+    var gs=0;
+    var t=setInterval(function(){ask_for_fresh(tid)},1000);
     if(gs===1) {
+        window.clearInterval(t);
         var time_to_move = 0;
         window.onload = function () {
             if (time_to_move == 0)
-                t = setTimeout(function(){"waiting_for_turn('{{table_id}}')"}, 1000);
+                t = setTimeout(function(){waiting_for_turn(tid)}, 5000);
             if (time_to_move == 1) {
                 var coordina = document.getElementById("chesses");
                 coordina.onclick = function (ev) {
@@ -57,9 +60,9 @@
     <input type="button" style="position: absolute;width:100px;height:100px;left:1550px;top:500px" value="reverse" onclick="reve(select_flag)">
     <input type="button" style="position: absolute;width:100px;height:100px;left:1650px;top:500px" value="abandon" onclick="reco(select_flag)">
     {% if is_owner%}
-    <input type="button" style="position: absolute;width:200px;height:100px;left:1500px;top:700px" value="START_GAME" onclick="send_start()">
+    <input type="button" style="position: absolute;width:200px;height:100px;left:1500px;top:700px" value="START_GAME" onclick="send_start(tid)">
     {% endif %}
-    <input type="button" style="position: absolute;width:200px;height:100px;left:1500px;top:800px" value="GIVE_UP_GAME" onclick="send_give_up()">
+    <input type="button" style="position: absolute;width:200px;height:100px;left:1500px;top:800px" value="GIVE_UP_GAME" onclick="send_give_up(tid)">
 </div>
 </body>
 </html>

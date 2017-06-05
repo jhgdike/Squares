@@ -6,7 +6,7 @@ if(drawing.getContext)
 {
     var context=drawing.getContext("2d");
     // the chessboard
-    context.fillStyle="rgba(127,0,127,0.5)";
+    context.fillStyle="rgba(127,0,127,1)";
     context.fillRect(600,0,800,800);
     context.strokeStyle="green";
     for(var i=0;i<20;i++)
@@ -28,6 +28,7 @@ function ask_for_fresh(tid) {
             success: function (data) {
                 for(var i=0;i<20;i++)
                 {
+                    console.log("test start");
                     for(var j=0;j<20;j++)
                     {
                         context.fillStyle=pid2col[data.player_n];
@@ -35,11 +36,9 @@ function ask_for_fresh(tid) {
                         context.strokeRect(600+i*40,j*40,40,40);
                     }
                 }
-                if(data.is_started==1)
+                if(gs===1)
                 {
-                    alert("game started!!");
-                    gs=1;
-                    window.clearInterval(t);
+                    context.fillRect(0,0,20,20);
                 }
             }
         });

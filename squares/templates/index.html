@@ -18,11 +18,15 @@
 <div>
     <H3>Tables:</H3>
 {% for table in table_ids %}
-<a id ={{loop.index}} href="/api/play/table/join/{{table}}")>table {{loop.index}} </a>
+    <form method="POST" action="/api/play/table/join/{{table}}">
+        <input type="submit" name="submit" value="{{table}}">
+    </form>
 {% endfor %}
 </div>
 
 <div class="form-group">
-    <a class="btn btn-primary" onclick="create_t()">创建桌子</a>
+    <form method="POST" action="/api/play/table/create">
+        <input type="submit" name="submit" value="create table">
+    </form>
 </div>
 {% endblock %}
