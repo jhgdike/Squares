@@ -31,11 +31,11 @@
     var gs=0;
     var t=setInterval(function(){ask_for_fresh(tid)},1000);
     if(gs===1) {
-        window.clearInterval(t);
+
         var time_to_move = 0;
         window.onload = function () {
             if (time_to_move == 0)
-                t = setTimeout(function(){waiting_for_turn(tid)}, 5000);
+                var tt = setTimeout(function(){waiting_for_turn(tid)}, 5000);
             if (time_to_move == 1) {
                 var coordina = document.getElementById("chesses");
                 coordina.onclick = function (ev) {

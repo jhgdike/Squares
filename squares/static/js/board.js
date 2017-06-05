@@ -38,7 +38,7 @@ function ask_for_fresh(tid) {
                 }
                 if(gs===1)
                 {
-                    context.fillRect(0,0,20,20);
+                    window.clearInterval(t);
                 }
             }
         });
@@ -61,7 +61,7 @@ function waiting_for_turn(tid) {
                         board[i][j]=data.squares[i][j];
                     }
                 }
-                if(data.turn==data.player_n)
+                if(data["data"].turn==data["data"].player_n)
                     time_to_move=1;
             }
         });

@@ -8,7 +8,7 @@ function send_start(tid)
         url: "/api/play/table/start/"+tid,
         dataType: "json",
         success: function(data){
-            if(data.is_started===true)
+            if(data["data"].is_start===true)
                 gs=1;
         }
     });
