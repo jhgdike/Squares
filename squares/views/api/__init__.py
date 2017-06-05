@@ -1,4 +1,5 @@
 from flask import Blueprint, jsonify, request, redirect, url_for
+from squares.libs.env_config import get_config
 
 
 def create_blueprint(module, name, package_name):
@@ -14,13 +15,16 @@ def create_blueprint(module, name, package_name):
     blueprint = Blueprint(
         blueprint_name, package_name, url_prefix=url_prefix)
 
-    @blueprint.errorhandler(KeyError)
-    def handle_key_error(error):
-        return jsonify(success=False, error=str(error)), 400
+    config = get_config('squares')
 
-    @blueprint.errorhandler(ValueError)
-    def handle_value_error(error):
-        return jsonify(success=False, error=str(error)), 400
+    if not config['DEBUG']:
+        @blueprint.errorhandler(KeyError)
+        def handle_key_error(error):
+            return jsonify(success=False, error=str(error)), 400
+
+        @blueprint.errorhandler(ValueError)
+        def handle_value_error(error):
+            return jsonify(success=False, error=str(error)), 400
 
     @blueprint.before_request
     def check_player_id():
