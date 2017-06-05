@@ -1,22 +1,23 @@
 /**
  * Created by firzen on 17-5-29.
  */
-function send_start()
+function send_start(tid)
 {
     $.ajax({
-        type: "GET",
-        url: "/view/api/play/table/ready",
+        type: "POST",
+        url: "/api/play/table/start/"+tid,
         dataType: "json",
         success: function(data){
+            gs=1;
         }
     });
 }
 
-function send_give_up()
+function send_give_up(tid)
 {
     $.ajax({
-        type: "GET",
-        url: "/view/api/play/table/give_up",
+        type: "POST",
+        url: "/api/play/table/quit/"+tid,
         dataType: "json",
         success: function(data){
             alert("you gave up");
