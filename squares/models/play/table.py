@@ -6,6 +6,8 @@ from squares.ext import redis
 from squares.utils.dis_mutex import dist_mutex_context
 from squares.errors.table import TakeError, JoinTableError, StartError
 
+TABLE_LEN = 20
+
 
 class Table:
     """
@@ -100,7 +102,7 @@ class Table:
                 if self._table_info['turn'] != 0:
                     raise StartError('The Game has been started!')
 
-                self._table_info['square'] = [[0] * 16] * 16
+                self._table_info['square'] = [[0] * TABLE_LEN] * TABLE_LEN
                 self._table_info['status'] = [1] * len(self.players)
                 self._table_info['turn'] = random.randint(
                     1, len(self.players))
