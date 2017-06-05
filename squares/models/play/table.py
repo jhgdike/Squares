@@ -52,8 +52,9 @@ class Table:
         table_info = redis.get(table_id)
         if table_info:
             table = cls()
+            print(table_info.decode('utf-8').replace('\'', '"'))
             table.prepare(table_id, json.loads(
-                table_info.decode().replace('\'', '"')))
+                table_info.decode('utf-8').replace('\'', '"')))
             return table
 
     @classmethod
@@ -100,7 +101,7 @@ class Table:
                     raise StartError('The Game has been started!')
 
                 self._table_info['square'] = [[0] * 16] * 16
-                self._table_info['status'] = [True] * len(self.players),
+                self._table_info['status'] = [1] * len(self.players)
                 self._table_info['turn'] = random.randint(
                     1, len(self.players))
                 self.commit()
@@ -139,5 +140,5 @@ class Table:
     def quit(self, player_id):
         for index, p_id in enumerate(self.players):
             if player_id == p_id:
-                self._table_info['status'][index] = False
+                self._table_info['status'][index] = 0
                 break

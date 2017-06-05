@@ -20,8 +20,9 @@ def login():
     if request.method == 'GET':
         return render_template('login.html')
     name = request.form['name']
-    if not redis.setnx(name, 1):
-        return render_template('login.html', error='Name has been used!')
+    redis.setnx(name, 1)
+    # if not redis.setnx(name, 1):
+    #     return render_template('login.html', error='Name has been used!')
     response = make_response(redirect('/'))
     response.set_cookie('player_id', name)
     return response
