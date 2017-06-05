@@ -45,7 +45,7 @@ function get_mouse_position(x,y)
                     data:{schema_id: select_flag, position:(cx,cy),rotate:player.chess[select_flag].rotate,symmetry:player.chess[select_flag].reverse},
                     dataType: "json",
                     success: function(data){
-                        alert("moved");
+                        window.alert("moved");
                         time_to_move=0;
                     }
                 });
