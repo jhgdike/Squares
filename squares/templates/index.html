@@ -2,7 +2,16 @@
 
 {% block head %}
 <script type="text/javascript">
-
+    function create_t() {
+        $.ajax({
+            type: "POST",
+            url: "/api/play/table/create",
+            dataType: "json",
+            success: function(data){
+                console.log(data.responseText);
+            }
+        });
+    }
 </script>
 {% endblock %}
 {% block body %}
@@ -14,6 +23,6 @@
 </div>
 
 <div class="form-group">
-    <a class="btn btn-primary" href="/api/play/table/create">创建桌子</a>
+    <a class="btn btn-primary" onclick="create_t()">创建桌子</a>
 </div>
 {% endblock %}
