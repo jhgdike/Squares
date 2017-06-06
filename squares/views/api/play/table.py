@@ -57,11 +57,12 @@ def step(table_id):
     logging.info(request.form)
 
     schema_id = request.form.get('schema_id', type=int)
-    position = json.loads(request.form.get('position', "[0, 0]"))
+    p_x = request.form.get('p_x', type=int)
+    p_y = request.form.get('p_y', type=int)
     rotate = request.form.get('rotate', 0, type=int)
     symmetry = request.form.get('symmetry', False, type=bool)
 
-    tc.step(schema_id, position, rotate, symmetry)
+    tc.step(schema_id, [p_x, p_y], rotate, symmetry)
     data = table_schema.dump(tc).data
     logging.info(data)
     return jsonify(success=True, data=data)
