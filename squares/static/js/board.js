@@ -34,11 +34,6 @@ function ask_for_fresh(tid) {
                         window.alert("get started");
                         gs=1;
                     }
-                    if(data["data"].turn==data["data"].player_n)
-                    {
-                        window.alert("time to move");
-                        time_to_move=1;
-                    }
                 }
             });
     }
@@ -58,9 +53,6 @@ function ask_for_fresh(tid) {
                                 context.strokeRect(600 + i * 40, j * 40, 40, 40);
                                 board[i][j] = data["data"].squares[i][j]
                             }
-                        }
-                        if (data["data"].is_start === true) {
-                            gs = 1;
                         }
                         if (data["data"].turn == data["data"].player_n) {
                             window.alert("time to move");
