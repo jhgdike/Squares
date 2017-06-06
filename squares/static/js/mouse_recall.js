@@ -37,14 +37,15 @@ function get_mouse_position(x,y)
                     player.chess[select_flag].posiy = cy * 40;
                     player.chess[select_flag].plot();
                     player.chess[select_flag].used = 1;
+                    console.log(select_flag);
                     $.ajax({
                         type: "POST",
-                        url: "/view/api/play/table/step/"+tid,
+                        url: "/api/play/table/step/"+tid,
                         data: {
                             schema_id: select_flag,
-                            position: (cx, cy),
+                            position: [cx, cy],
                             rotate: player.chess[select_flag].rotate,
-                            symmetry: player.chess[select_flag].reverse
+                            symmetry: Boolean(player.chess[select_flag].reverse)
                         },
                         dataType: "json",
                         success: function (data) {
