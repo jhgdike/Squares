@@ -60,6 +60,8 @@ def step(table_id):
     rotate = request.args.get('rotate', 0, type=int)
     symmetry = request.args.get('symmetry', False, type=bool)
 
+    logging.info(request.args)
+
     tc.step(schema_id, position, rotate, symmetry)
     data = table_schema.dump(tc).data
     logging.info(data)
