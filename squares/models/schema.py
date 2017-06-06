@@ -4,7 +4,7 @@ def get_axis_by_schema_id(schema_id, init, rotate=0, symmetry=False):
     res = []
     for item in _schemas[int(schema_id)]:
         for i in range(2):
-            _symmetry(item, symmetry)
+            item = _symmetry(item, symmetry)
             rs = _rotate(item, rotate)
             res.append([init[0] - rs[0], init[1] + rs[1]])
     return res
@@ -48,7 +48,7 @@ _rotates = [
 
 def _symmetry(item, is_symmetry):
     if is_symmetry:
-        item[1] = -item[1]
+        return [item[0], -item[1]]
 
 
 def _rotate(item, index):
