@@ -7,7 +7,7 @@ for(let i=0;i<20;i++)
     board[i]=new Array(20);
     for(let j=0;j<20;j++)
     {
-        board[i][j]=-1;
+        board[i][j]=0;
     }
 }
 
@@ -23,7 +23,7 @@ function take_place(pla_num,chess_order,x,y)
         temp[1]=cy-cood[1];
         if(temp[0]<0 || temp[0]>19 || temp[1]<0 || temp[1]>19)
             return false;
-        if(board[temp[0]][temp[1]]===-1)
+        if(board[temp[0]][temp[1]]===0)
         {
             if(temp[0]>0)
                 if(board[temp[0]-1][temp[1]]===pla_num)
@@ -46,11 +46,11 @@ function take_place(pla_num,chess_order,x,y)
     let det=0;
     if(step===0)
     {
-        user=pla_num;
-        pla_num===2?user=3:0;
-        pla_num===3?user=2:0;
-        let my=Math.floor(user/2);
-        let mx=user%2;
+        user=pla_num-1;
+        user===2?user=3:0;
+        user===3?user=2:0;
+        let mx=Math.floor(user/2);
+        let my=user%2;
         for(let i=0;i<player.chess[chess_order].num;i++)
         {
             let cood=cal(player.chess[chess_order].rotate,player.chess[chess_order].reverse,player.chess[chess_order].charax[i],player.chess[chess_order].charay[i]);
