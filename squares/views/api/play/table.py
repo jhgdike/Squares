@@ -54,13 +54,12 @@ def observe(table_id):
 def step(table_id):
     player_id = request.cookies['player_id']
     tc = TableController(table_id, player_id)
+    logging.info(request.form)
 
-    schema_id = request.args.get('schema_id', type=int)
-    position = json.loads(request.args.get('position', "[0, 0]"))
-    rotate = request.args.get('rotate', 0, type=int)
-    symmetry = request.args.get('symmetry', False, type=bool)
-
-    logging.info(request.args)
+    schema_id = request.form.get('schema_id', type=int)
+    position = json.loads(request.form.get('position', "[0, 0]"))
+    rotate = request.form.get('rotate', 0, type=int)
+    symmetry = request.form.get('symmetry', False, type=bool)
 
     tc.step(schema_id, position, rotate, symmetry)
     data = table_schema.dump(tc).data
