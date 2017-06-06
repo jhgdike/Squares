@@ -66,7 +66,9 @@ def start(table_id):
     player_id = request.cookies['player_id']
     tc = TableController(table_id, player_id)
     tc.start()
-    return jsonify(success=True, data=table_schema.dump(tc).data)
+    data = table_schema.dump(tc).data
+    logging.info(data)
+    return jsonify(success=True, data=data)
 
 
 @bp.route('/quit/<string:table_id>', methods=('POST',))
