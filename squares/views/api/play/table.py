@@ -43,7 +43,8 @@ def join(table_id):
 @bp.route('/observe/<string:table_id>')
 def observe(table_id):
     """observer"""
-    tc = TableController(table_id)
+    player_id = request.cookies.get('player_id', 0)
+    tc = TableController(table_id, player_id)
     return jsonify(success=True, data=table_schema.dump(tc).data)
 
 
