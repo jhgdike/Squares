@@ -38,7 +38,7 @@ function get_mouse_position(x,y)
                     player.chess[select_flag].plot();
                     player.chess[select_flag].used = 1;
                     $.ajax({
-                        type: "GET",
+                        type: "POST",
                         url: "/view/api/play/table/step/{{table_id}}",
                         data: {
                             schema_id: select_flag,
