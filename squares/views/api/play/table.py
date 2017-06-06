@@ -45,7 +45,9 @@ def observe(table_id):
     """observer"""
     player_id = request.cookies.get('player_id', 0)
     tc = TableController(table_id, player_id)
-    return jsonify(success=True, data=table_schema.dump(tc).data)
+    data = table_schema.dump(tc).data
+    logging.info(data)
+    return jsonify(success=True, data=data)
 
 
 @bp.route('/step/<string:table_id>', methods=('POST',))
@@ -53,13 +55,15 @@ def step(table_id):
     player_id = request.cookies['player_id']
     tc = TableController(table_id, player_id)
 
-    schema_id = request.args.get('schema_id')
+    schema_id = request.args.get('schema_id', type=int)
     position = json.loads(request.args.get('position', "[0, 0]"))
     rotate = request.args.get('rotate', 0, type=int)
     symmetry = request.args.get('symmetry', False, type=bool)
 
     tc.step(schema_id, position, rotate, symmetry)
-    return jsonify(success=True, data=dict(squares=tc.squares))
+    data = table_schema.dump(tc).data
+    logging.info(data)
+    return jsonify(success=True, data=data)
 
 
 @bp.route('/start/<string:table_id>', methods=('POST',))

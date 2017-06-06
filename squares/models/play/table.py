@@ -143,4 +143,5 @@ class Table:
         for index, p_id in enumerate(self.players):
             if player_id == p_id:
                 self._table_info['status'][index] = 0
+                self.commit()
                 break
