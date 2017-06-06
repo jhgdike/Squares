@@ -32,7 +32,7 @@
     var time_to_move=0;
     var t=setInterval(function(){ask_for_fresh(tid)},1000);
     window.onload = function () {
-        if (time_to_move == 1 && gs==1) {
+
             var coordina = document.getElementById("chesses");
             coordina.onclick = function (ev) {
                 ev = window.event || ev;
@@ -43,7 +43,6 @@
                 //alert(x+" "+y);
                 get_mouse_position(x, y);
             }
-        }
     }
 
 //player.chess[5].draw(20,20);
