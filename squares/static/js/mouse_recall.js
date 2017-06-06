@@ -43,7 +43,8 @@ function get_mouse_position(x,y)
                         url: "/api/play/table/step/"+tid,
                         data: {
                             schema_id: select_flag,
-                            position: [cx, cy],
+                            p_x: cx,
+                            p_y: cy,
                             rotate: player.chess[select_flag].rotate,
                             symmetry: Boolean(player.chess[select_flag].reverse)
                         },
