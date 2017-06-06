@@ -128,16 +128,21 @@ class Table:
             raise TakeError('Not your turn!')
         self._set_chess(axises, n)
 
+        turn = self._table_info['turn']
         while True:
-            turn = (self._table_info['turn']) % len(self.players) + 1
+            turn = turn % len(self.players) + 1
             if self._table_info['status'][turn - 1]:
                 self._table_info['turn'] = turn
                 break
 
         self.commit()
 
-    def _set_chess(self, axis, n):
-        self._table_info['square'][axis[0]][axis[1]] = n
+    def _set_chess(self, axises, n):
+        for axis in axises:
+            if self._table_info['square'][axis[0]][axis[1]] == 0:
+                self._table_info['square'][axis[0]][axis[1]] = n
+            else:
+                raise TakeError('落子错误')
 
     def quit(self, player_id):
         for index, p_id in enumerate(self.players):
