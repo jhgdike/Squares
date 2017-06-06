@@ -26,6 +26,13 @@
     var select_flag=-1;
     player=new Object;
     var playern={{player_n}};
+    let pn=playern-1;
+    if(pn==3 || pn==4)
+        pn=7-pn;
+    var context=drawing.getContext("2d");
+    // the chessboard
+    context.fillStyle="black";
+    context.fillRect(580+820*Math.floor(pn/2),0+780*(pn%2),20,20);
     var tid="{{table_id}}";
     create_chesses(pid2col[playern],player);
     var gs=0;

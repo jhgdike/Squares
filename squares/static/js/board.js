@@ -16,6 +16,7 @@ if(drawing.getContext)
             context.strokeRect(600+i*40,j*40,40,40);
         }
     }
+    context.fillStyle="black";
     // all the chesses are on the left\
 }
 
@@ -51,9 +52,8 @@ function ask_for_fresh(tid) {
                     dataType: "json",
                     success: function (data) {
                         for (var i = 0; i < 20; i++) {
-                            console.log("test start");
                             for (var j = 0; j < 20; j++) {
-                                context.fillStyle = pid2col[data.player_n];
+                                context.fillStyle = pid2col[data["data"].squares[i][j]];
                                 context.fillRect(600 + i * 40, j * 40, 40, 40);
                                 context.strokeRect(600 + i * 40, j * 40, 40, 40);
                                 board[i][j] = data["data"].squares[i][j]
