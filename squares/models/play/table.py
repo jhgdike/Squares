@@ -139,7 +139,7 @@ class Table:
             if self._table_info['square'][axis[0]][axis[1]] == 0:
                 self._table_info['square'][axis[0]][axis[1]] = n
             else:
-                raise TakeError('落子错误')
+                raise TakeError('take error')
 
     def _next_turn(self):
         turn = self._table_info['turn']
