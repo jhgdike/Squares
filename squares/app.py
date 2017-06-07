@@ -62,6 +62,6 @@ def log_config(app):
         '%(asctime)s - %(name)s - %(levelname)s - %(message)s'))
     log = logging.getLogger()
 
-    if app.config['DEBUG']:
+    if app.config.get('DEBUG'):
         log.setLevel(logging.DEBUG)
     log.addHandler(ch)

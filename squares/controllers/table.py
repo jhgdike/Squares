@@ -1,3 +1,5 @@
+import logging
+
 from squares.models.play.table import Table
 from squares.models.schema import get_axis_by_schema_id
 from squares.errors.table import OutRangeError, TakeError
@@ -45,6 +47,8 @@ class TableController:
 
     def step(self, schema_id, position, rotate=0, symmetry=False):
         axises = get_axis_by_schema_id(schema_id, position, rotate, symmetry)
+        print('axises:')
+        print(axises)
         self._check(axises)
 
         self.table.step(axises, self.player_n)
@@ -58,32 +62,41 @@ class TableController:
             self.is_legal(item)
 
         if not self.is_opposite:
+            logging.warning('Must be in the opposite of your chess!')
             raise TakeError('Must be in the opposite of your chess!')
 
     def is_legal(self, axis):
         if not self._check_out(axis):
+            logging.warning('Out of range!')
             raise OutRangeError('Out of range!')
 
         if self.squares[axis[0]][axis[1]]:
+            logging.warning('Wrong location!')
             raise TakeError('Wrong location!')
 
         self._check_touch(axis)
         self._check_opposite(axis)
 
     def _check_out(self, axis):
-        return 0 < axis[0] < len(self.squares) and \
-               0 < axis[1] < len(self.squares)
+        return 0 <= axis[0] < len(self.squares) and \
+               0 <= axis[1] < len(self.squares)
 
     def _check_touch(self, axis):
         for op in _touch:
             new_ax = [axis[0] + op[0], axis[1] + op[1]]
             if self._check_out(new_ax):
                 if self.player_n == self._chess_n(new_ax):
+                    logging.warning('Adjacent to your chess!')
                     raise TakeError('Adjacent to your chess!')
         return True
 
     def _check_opposite(self, axis):
+        if self.is_opposite:
+            return
         for op in _opposite:
+            if tuple(axis) in _cornor:
+                self.is_opposite = True
+                break
             new_ax = [axis[0] + op[0], axis[1] + op[1]]
             if self._check_out(new_ax):
                 if self.player_n == self._chess_n(new_ax):
@@ -113,4 +126,11 @@ _opposite = [
     [1, 1],
     [-1, 1],
     [1, -1],
+]
+
+_cornor = [
+    (0, 0),
+    (19, 0),
+    (19, 19),
+    (0, 19),
 ]

@@ -92,7 +92,7 @@ class Table:
 
     def commit(self):
         if self.table_id and self._table_info:
-            redis.set(self.table_id, self._table_info, ex=3600)
+            redis.set(self.table_id, self._table_info, ex=3600, xx=True)
 
     def start(self):
         with dist_mutex_context('start_'.format(self.table_id), 3) as locked:
@@ -129,6 +129,8 @@ class Table:
         self._set_chess(axises, n)
 
         turn = self._table_info['turn']
+        print('step:')
+        print(axises)
         while True:
             turn = turn % len(self.players) + 1
             if self._table_info['status'][turn - 1]:
