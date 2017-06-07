@@ -46,12 +46,18 @@ function get_mouse_position(x,y)
                             p_x: cx,
                             p_y: cy,
                             rotate: player.chess[select_flag].rotate,
-                            symmetry: Boolean(player.chess[select_flag].reverse)
+                            symmetry: player.chess[select_flag].reverse
                         },
                         dataType: "json",
                         success: function (data) {
-                            window.alert("moved");
-                            time_to_move = 0;
+                            if(data["success"]===false) {
+                                window.alert(data["error"]);
+                                reco(select_flag);
+                            }
+                            else {
+                                window.alert("moved");
+                                time_to_move = 0;
+                            }
                         }
                     });
                     select_flag = -1;
