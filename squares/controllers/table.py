@@ -61,7 +61,7 @@ class TableController:
             raise TakeError('Must be in the opposite of your chess!')
 
     def is_legal(self, axis):
-        if not self._check_out(axis[0]) or not self._check_out(axis[1]):
+        if not self._check_out(axis):
             raise OutRangeError('Out of range!')
 
         if self.squares[axis[0]][axis[1]]:
@@ -70,8 +70,9 @@ class TableController:
         self._check_touch(axis)
         self._check_opposite(axis)
 
-    def _check_out(self, index):
-        return 0 < index < len(self.squares)
+    def _check_out(self, axis):
+        return 0 < axis[0] < len(self.squares) and \
+               0 < axis[1] < len(self.squares)
 
     def _check_touch(self, axis):
         for op in _touch:
