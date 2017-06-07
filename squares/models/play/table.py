@@ -128,14 +128,9 @@ class Table:
             raise TakeError('Not your turn!')
         self._set_chess(axises, n)
 
-        turn = self._table_info['turn']
         print('step:')
         print(axises)
-        while True:
-            turn = turn % len(self.players) + 1
-            if self._table_info['status'][turn - 1]:
-                self._table_info['turn'] = turn
-                break
+        self._next_turn()
 
         self.commit()
 
@@ -146,9 +141,18 @@ class Table:
             else:
                 raise TakeError('落子错误')
 
+    def _next_turn(self):
+        turn = self._table_info['turn']
+        while True:
+            turn = turn % len(self.players) + 1
+            if self._table_info['status'][turn - 1]:
+                self._table_info['turn'] = turn
+                break
+
     def quit(self, player_id):
         for index, p_id in enumerate(self.players):
             if player_id == p_id:
                 self._table_info['status'][index] = 0
+                self._next_turn()
                 self.commit()
                 break

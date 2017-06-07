@@ -108,7 +108,7 @@ class TableController:
 
     @property
     def squares(self):
-        return list(zip(*self.table.situation()))
+        return self.table.situation() and list(zip(*self.table.situation()))
 
     @property
     def status(self):
