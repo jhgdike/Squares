@@ -2,7 +2,7 @@
 
 def get_axis_by_schema_id(schema_id, init, rotate=0, symmetry=False):
     res = []
-    for item in _schemas[int(schema_id) - 1]:
+    for item in _schemas[int(schema_id)]:
         item = _symmetry(item, symmetry)
         print(item)
         rs = _rotate(item, rotate)

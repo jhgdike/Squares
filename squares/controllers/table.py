@@ -49,7 +49,7 @@ class TableController:
         axises = get_axis_by_schema_id(schema_id, position, rotate, symmetry)
         print('axises:')
         print(axises)
-        self._check(axises)
+        # self._check(axises)
 
         self.table.step(axises, self.player_n)
 
@@ -108,7 +108,7 @@ class TableController:
 
     @property
     def squares(self):
-        return self.table.situation()
+        return list(zip(*self.table.situation()))
 
     @property
     def status(self):
