@@ -7,7 +7,7 @@ from squares.ext import cache
 
 class DistMutex(object):
     """
-    一个简单的分布式锁
+    a simple dist mutex
     """
 
     def __init__(self, key):
