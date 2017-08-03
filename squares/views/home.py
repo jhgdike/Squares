@@ -28,6 +28,11 @@ def login():
     return response
 
 
+@bp.route('/getip')
+def get_ip():
+    return make_response(request.remote_addr)
+
+
 @bp.app_errorhandler(BaseError)
 def app_errorhandler(e):
     return jsonify(success=False, error=str(e))
