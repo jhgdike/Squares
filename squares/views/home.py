@@ -30,7 +30,7 @@ def login():
 
 @bp.route('/getip')
 def get_ip():
-    return make_response(request.remote_addr)
+    return make_response(request.remote_addr + '\n')
 
 
 @bp.app_errorhandler(BaseError)
