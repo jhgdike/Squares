@@ -1,4 +1,4 @@
-Squares
+Squares(方格游戏)
 =======
 
 Squares is a board games. Just for fun.
