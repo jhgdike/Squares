@@ -24,7 +24,7 @@ def create():
     table = Table.create_table(player_id)
     tc = TableController(table.table_id, player_id)
 
-    data = table_schema.dump(tc).data
+    data = table_schema.dump(tc)
     logging.info(data)
     return render_template('table.html', **data)
 
@@ -35,7 +35,7 @@ def join(table_id):
     player_id = request.cookies['player_id']
     tc = TableController(table_id)
     tc.join(player_id)
-    data = table_schema.dump(tc).data
+    data = table_schema.dump(tc)
     logging.info(data)
     return render_template('table.html', **data)
 
@@ -45,7 +45,7 @@ def observe(table_id):
     """observer"""
     player_id = request.cookies.get('player_id', 0)
     tc = TableController(table_id, player_id)
-    data = table_schema.dump(tc).data
+    data = table_schema.dump(tc)
     logging.info(data)
     return jsonify(success=True, data=data)
 
@@ -63,7 +63,7 @@ def step(table_id):
     symmetry = request.form.get('symmetry', 0, type=int)
 
     tc.step(schema_id, [p_y, p_x], rotate, bool(symmetry))
-    data = table_schema.dump(tc).data
+    data = table_schema.dump(tc)
     logging.info(data)
     return jsonify(success=True, data=data)
 
@@ -73,7 +73,7 @@ def start(table_id):
     player_id = request.cookies['player_id']
     tc = TableController(table_id, player_id)
     tc.start()
-    data = table_schema.dump(tc).data
+    data = table_schema.dump(tc)
     logging.info(data)
     return jsonify(success=True, data=data)
 

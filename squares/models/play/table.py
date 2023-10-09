@@ -72,7 +72,7 @@ class Table:
             'players': [player_id],
             'owner': player_id,
         }
-        if redis.set(table_id, table_info, ex=3600):
+        if redis.set(table_id, json.dumps(table_info), ex=3600):
             table = cls()
             table.prepare(table_id, table_info)
             return table

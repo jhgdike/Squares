@@ -12,7 +12,7 @@ def create_blueprint(module, name, package_name):
     """
 
     url_prefix = '/api/{}/{}'.format(module, name)
-    blueprint_name = 'api-{}.{}'.format(module, name)
+    blueprint_name = 'api-{}-{}'.format(module, name)
     blueprint = Blueprint(
         blueprint_name, package_name, url_prefix=url_prefix)
 

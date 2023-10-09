@@ -3,8 +3,8 @@
 from gevent import monkey
 monkey.patch_all(thread=False)
 
-from werkzeug.contrib.fixers import ProxyFix
-from werkzeug.contrib.profiler import ProfilerMiddleware
+from werkzeug.middleware.proxy_fix import ProxyFix
+from werkzeug.middleware.profiler import ProfilerMiddleware
 
 from .app import create_app
 

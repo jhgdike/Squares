@@ -6,8 +6,8 @@ Squares is a board games. Just for fun.
 To run this function, you need to do as follows:
 -----
 
-* Install Python Interpreter. Python 2.7 or Python 3.4 is recommended.
-* run: `virtualenv venv`
+* Install Python Interpreter. Python 3 is recommended.
+* run: `python3 -m venv venv`
 * `source venv/bin/activate` or `source venv/Scripts/activate` if you run on a Windows System.
 * `pip install -r requirements.txt`
 * `cp .env.example .env`
