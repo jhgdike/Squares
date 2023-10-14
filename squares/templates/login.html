@@ -1,7 +1,26 @@
 {% extends "base.html" %}
+{% block head %}
+<style>
+  .container {
+  text-align: center;
+  margin: 300px auto;
+
+  }
+</style>
+{% endblock %}
 {% block body %}
-<form method="POST" action="{{url_for('home.login')}}">
-  <input type="text" name="name" placeholder="{{error}}">
-  <input type="submit" name="submit" value="submit">
+
+<form method="POST" action="{{url_for('home.login')}}" class="container">
+
+  <div>
+    <div>请输入你的名字：</div>
+    <p></p>
+    <div>
+
+    <input type="text" name="name" placeholder="{{error}}">
+    <input type="submit" name="submit" value="submit">
+  </div>
+  </div>
+
 </form>
 {% endblock %}

@@ -1,17 +1,20 @@
 import logging
 
-from squares.models.play.table import Table
+from squares.models.play import Table
 from squares.models.schema import get_axis_by_schema_id
 from squares.errors.table import OutRangeError, TakeError
 
 
+TABLE_MAX = 1024
+
+
 class TableController:
-    TABLE_MAX = 1024
-    TABLE_ID = 'table_id_{}'
 
     def __init__(self, table_id, player_id=0):
         self.table_id = table_id
         self.table = Table.get_by_id(table_id)
+        if not self.table:
+            raise TakeError("table not found")
         self.player_id = player_id
         self.players = self.table.players
 
@@ -94,7 +97,7 @@ class TableController:
         if self.is_opposite:
             return
         for op in _opposite:
-            if tuple(axis) in _cornor:
+            if tuple(axis) in _corner:
                 self.is_opposite = True
                 break
             new_ax = [axis[0] + op[0], axis[1] + op[1]]
@@ -114,6 +117,7 @@ class TableController:
     def status(self):
         return self.table.status
 
+
 _touch = [
     [0, -1],
     [0, 1],
@@ -128,7 +132,7 @@ _opposite = [
     [1, -1],
 ]
 
-_cornor = [
+_corner = [
     (0, 0),
     (19, 0),
     (19, 19),

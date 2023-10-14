@@ -3,7 +3,7 @@ from flask import (
     Blueprint, request, render_template, jsonify, make_response, redirect)
 
 from squares.errors import BaseError
-from squares.models.play.table import Table
+from squares.models.play import Table
 
 
 bp = Blueprint('home', __name__)
@@ -11,6 +11,10 @@ bp = Blueprint('home', __name__)
 
 @bp.route('/')
 def home():
+    name = request.cookies.get('player_id')
+    if not name:
+        response = make_response(redirect('/login'))
+        return response
     table_ids = Table.get_all()
     return render_template('index.html', table_ids=table_ids)
 
@@ -20,9 +24,6 @@ def login():
     if request.method == 'GET':
         return render_template('login.html')
     name = request.form['name']
-    redis.setnx(name, 1)
-    # if not redis.setnx(name, 1):
-    #     return render_template('login.html', error='Name has been used!')
     response = make_response(redirect('/'))
     response.set_cookie('player_id', name)
     return response

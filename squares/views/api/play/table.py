@@ -1,7 +1,7 @@
 import json
 import logging
 
-from flask import jsonify, request, render_template
+from flask import jsonify, request, render_template, redirect
 
 from squares.views.api import create_blueprint
 from squares.controllers.table import TableController, Table
@@ -22,7 +22,13 @@ def create():
     """create a game table"""
     player_id = request.cookies['player_id']
     table = Table.create_table(player_id)
-    tc = TableController(table.table_id, player_id)
+    return redirect('/api/play/table/info/'+table.table_id)
+
+
+@bp.route('/info/<string:table_id>')
+def table_info(table_id):
+    player_id = request.cookies['player_id']
+    tc = TableController(table_id, player_id)
 
     data = table_schema.dump(tc)
     logging.info(data)
