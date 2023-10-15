@@ -12,4 +12,5 @@ class TableSchema(Schema):
     player_n = fields.Integer()
     status = fields.List(fields.Boolean())
 
+
 table_schema = TableSchema()

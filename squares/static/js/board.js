@@ -31,8 +31,9 @@ function ask_for_fresh(tid) {
                 dataType: "json",
                 success: function (data) {
                     if (data["data"].is_start===true) {
+                        gs = 1;
+                        console.log(gs);
                         window.alert("get started");
-                        gs=1;
                     }
                 }
             });
@@ -55,8 +56,8 @@ function ask_for_fresh(tid) {
                             }
                         }
                         if (data["data"].turn == data["data"].player_n) {
-                            window.alert("time to move");
                             time_to_move = 1;
+                            window.alert("time to move");
                         }
                     }
                 });

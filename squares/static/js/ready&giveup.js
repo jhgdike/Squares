@@ -9,8 +9,9 @@ function send_start(tid)
         dataType: "json",
         success: function(data){
             if(data["data"].is_start===true)
-                window.alert("get started")
                 gs=1;
+                console.log("gs=", gs);
+                window.alert("get started")
         }
     });
 }

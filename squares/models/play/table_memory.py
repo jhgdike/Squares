@@ -40,7 +40,7 @@ class Table:
         self._players = [player_id]
 
         self._status = None
-        self._square = [[0] * TABLE_LEN] * TABLE_LEN
+        self._square = [[0] * TABLE_LEN for _ in range(TABLE_LEN)]
 
         self.__table_lock = Lock()
 
@@ -71,6 +71,10 @@ class Table:
     @property
     def owner(self):
         return self._owner
+
+    @property
+    def turn(self):
+        return self._turn
 
     @classmethod
     def get_all(cls):
@@ -138,7 +142,7 @@ class Table:
             if self._square[axis[0]][axis[1]] == 0:
                 self._square[axis[0]][axis[1]] = n
             else:
-                raise TakeError('take error')
+                raise TakeError('take error, {}, squre: {}'.format(axises, self._square))
 
     def _next_turn(self):
         turn = self._turn

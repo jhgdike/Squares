@@ -3,6 +3,7 @@
  */
 function rota(chessnum)
 {
+    console.log(chessnum)
     player.chess[chessnum].erase();
     player.chess[chessnum].rotate++;
     player.chess[chessnum].rotate=player.chess[chessnum].rotate%4;

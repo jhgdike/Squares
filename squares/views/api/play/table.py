@@ -52,7 +52,7 @@ def observe(table_id):
     player_id = request.cookies.get('player_id', 0)
     tc = TableController(table_id, player_id)
     data = table_schema.dump(tc)
-    logging.info(data)
+    # logging.info(data)
     return jsonify(success=True, data=data)
 
 

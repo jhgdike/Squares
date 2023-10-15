@@ -23,6 +23,7 @@ function myBrowser(){
 
 function get_mouse_position(x,y)
 {
+    console.log(time_to_move, gs);
     if (time_to_move == 1 && gs==1) {
         let cx;
         let cy;
@@ -55,7 +56,7 @@ function get_mouse_position(x,y)
                                 reco(select_flag);
                             }
                             else {
-                                window.alert("moved");
+//                                window.alert("moved");
                                 time_to_move = 0;
                             }
                         }
@@ -67,19 +68,25 @@ function get_mouse_position(x,y)
         }
         else if (x >= 20 && x <= 580 && y >= 20 && y <= 780) {//on plate
             if (select_flag >= 0) {
+                console.log('select_flag >= 0', select_flag);
                 0;
             }
             else {
                 for (let i = 0; i < 21; i++) {
-                    if (player.chess[i].used)
+                    if (player.chess[i].used) {
+                        console.log(i, "used");
                         continue;
+                    }
                     for (let j = 0; j < player.chess[i].num; j++) {
                         let judge = ((player.chess[i].last_pox + player.chess[i].charax[j] * 40) <= x);
                         judge = (judge && (x <= (player.chess[i].last_pox + player.chess[i].charax[j] * 40 + 40)));
                         judge = (judge && ((player.chess[i].last_poy - player.chess[i].charay[j] * 40) <= y));
                         judge = (judge && (y <= (player.chess[i].last_poy - player.chess[i].charay[j] * 40 + 40)));
+                        console.log('judge', judge);
                         if (judge === true) {
+                            console.log(select_flag)
                             select_flag = i;
+                            console.log('select_flag', i);
                             player.chess[i].erase();
                             player.chess[i].posix = 1600;
                             player.chess[i].posiy = 200;

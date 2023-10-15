@@ -23,12 +23,7 @@ var Chess=
             {
                 chess.charax[i]=chess.charay[i]=0;
             }
-            chess.rotate=0;           //times of being rotated for 90 degree (0,1,2,3).
-            chess.reverse=0;          //whether be reversed (0,1).
-            chess.used=0;             //whether be used (0,1).
-            chess.draw=draw;          //draw this chess.the upper left of the first square is at (startx,starty).
-            chess.plot=plot;
-            chess.erase=erase;
+
             function plot()
             {
                 let context=chesses.getContext("2d");
@@ -98,14 +93,21 @@ var Chess=
                 this.last_poy=this.posiy;
                 return "plotted";
             }
+            chess.rotate=0;           //times of being rotated for 90 degree (0,1,2,3).
+            chess.reverse=0;          //whether be reversed (0,1).
+            chess.used=0;             //whether be used (0,1).
+            chess.draw=draw;          //draw this chess.the upper left of the first square is at (startx,starty).
+            chess.plot=plot;
+            chess.erase=erase;
             return chess;
         }
     };
 
 function create_chesses(color,player) {
     player.chess=new Array(21);
-    for(let i=0;i<21;i++)
+    for(let i=0;i<21;i++) {
         player.chess[i]=Chess.createNew(color);
+    }
     let j=0;
     //chess 0
     // .
