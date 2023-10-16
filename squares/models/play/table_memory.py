@@ -107,7 +107,7 @@ class Table:
 
     def start(self):
         with self.__table_lock:
-            if len(self._players) < 2:
+            if len(self._players) not in (2, 3, 4):
                 raise StartError('Poor players!')
             if self._turn != 0:
                 raise StartError('The Game has been started!')

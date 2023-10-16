@@ -2,6 +2,7 @@
  * Created by firzen on 17-5-24.
  */
 var drawing=document.getElementById("drawing");
+var turnWarn = 0;
 if(drawing.getContext)
 {
     var context=drawing.getContext("2d");
@@ -57,7 +58,10 @@ function ask_for_fresh(tid) {
                         }
                         if (data["data"].turn == data["data"].player_n) {
                             time_to_move = 1;
-                            window.alert("time to move");
+                            if (turnWarn == 0) {
+                                turnWarn = 1;
+                                window.alert("time to move");
+                            }
                         }
                     }
                 });

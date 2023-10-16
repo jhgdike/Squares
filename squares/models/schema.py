@@ -56,6 +56,5 @@ def _symmetry(item, is_symmetry):
 def _rotate(item, index):
     rs = [0, 0]
     for i in range(2):
-        rs[i] = \
-            item[0] * _rotates[index][i][0] + item[1] * _rotates[index][i][1]
+        rs[i] = item[0] * _rotates[index][i][0] + item[1] * _rotates[index][i][1]
     return rs
